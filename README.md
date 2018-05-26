@@ -1,2 +1,0 @@
-# wakumaker
-Created with CodeSandbox

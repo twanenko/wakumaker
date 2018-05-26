@@ -1,0 +1,39 @@
+<html>
+
+<head>
+	<title>wakumaker</title>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+	<link rel="stylesheet" href="//cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
+	<link rel="stylesheet" href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
+</head>
+
+<body>
+	<div class="container">
+		<header class="header">
+			<h1>wakumaker</h1>
+		</header>
+
+		<main class="main">
+			<div id="twocol">
+				<div>
+					<label for="rowselect">縦の枠数</label>
+					<select id="rowselect"></select>
+				</div>
+				<div>
+					<label for="colselect">横の枠数</label>
+					<select id="colselect"></select>
+				</div>
+			</div>
+			<input type="text" placeholder="タイトル">
+			<div id="framecontainer">
+			</div>
+		</main>
+	</div>
+
+	<script src="src/index.js"></script>
+</body>
+
+</html>
