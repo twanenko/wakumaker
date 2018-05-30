@@ -29,8 +29,15 @@ input[type="text"] {
   border: 1px solid #000;
 }
 
+.frameimage > label {
+  display: grid;
+  --frame-col-num: 1;
+  grid-template-columns: repeat(var(--frame-col-num), 1fr);
+  grid-column-gap: 10px;
+}
+
 .thumb {
-  height: 75px;
+  width: auto;
   border: none;
-  margin: 5px;
+  object-fit: cover;
 }

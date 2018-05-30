@@ -5,10 +5,12 @@ const rowNumContainer = document.getElementById("rowselect");
 const colNumContainer = document.getElementById("colselect");
 const templateNode = `
 <div class="frame">
-	<input type="text" placeholder="サブタイトル">
+	<input type="text">
 	<div class="frameimage">
-    <input type="file" name="files" accept="image/*" capture="camera" multiple>
-    <output></output>
+    <label>
+      <i class="material-icons">add_box</i>
+      <input type="file" name="files" accept="image/*" capture="camera" multiple style="display:none">
+    </label>
   </div>
 </div>`;
 const rowNum = 5; //rowの最大値
@@ -20,6 +22,17 @@ colNumContainer.addEventListener("change", changecolnum);
 //枠数をセット
 colNumContainer.addEventListener("change", setFrame);
 rowNumContainer.addEventListener("change", setFrame);
+
+frameContainer.addEventListener("click", event => {
+  if (event.target.name === "frameimage") {
+    event.target.getElementByTagName("input").click();
+  }
+});
+frameContainer.addEventListener("change", event => {
+  if (event.target.name === "files") {
+    handleFile(event);
+  }
+});
 
 function initNumContainer(container, num, defnum) {
   const options = [];
@@ -57,6 +70,41 @@ function addFrame(num, node) {
 function removeFrame(num) {
   for (let i = 0; i < num; i++) {
     frameContainer.removeChild(frameContainer.lastElementChild);
+  }
+}
+
+function handleFile(evt) {
+  evt.target.parentNode.querySelectorAll("span").forEach(e => {
+    e.parentNode.removeChild(e);
+  });
+  const files = evt.target.files;
+  if (files.length) {
+    evt.target.parentNode.querySelectorAll("i").forEach(e => {
+      e.style.display = "none";
+    });
+  } else {
+    evt.target.parentNode.querySelectorAll("i").forEach(e => {
+      e.style.display = "";
+    });
+  }
+  const colNum = Math.ceil(Math.sqrt(files.length));
+  evt.target.parentNode.style.setProperty("--frame-col-num", colNum);
+  for (let i = 0, f; (f = files[i]); i++) {
+    let reader = new FileReader();
+    reader.onload = (function(theFile) {
+      return function(e) {
+        let span = document.createElement("span");
+        span.innerHTML = [
+          '<img class="thumb" src="',
+          e.target.result,
+          '" title="',
+          escape(theFile.name),
+          '"/>'
+        ].join("");
+        evt.target.parentNode.appendChild(span);
+      };
+    })(f);
+    reader.readAsDataURL(f);
   }
 }
 
